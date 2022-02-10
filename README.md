@@ -8,5 +8,5 @@
 
 1. Checkout new branch: git checkout -b <branch_name>
 2. Push to the branch: git push origin <branch_name>
-3. When all code in the branch works fine: git checkout main
-   git merge <branch_name>
+3. When all code in the branch works fine, checkout to main: git checkout main .
+4. Then merge to main: git merge <branch_name>
