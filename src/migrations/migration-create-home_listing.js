@@ -9,21 +9,26 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       price: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       address: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       description: {
+        allowNull: false,
         type: Sequelize.TEXT("long"),
       },
       phoneNumber: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       userId: {
         type: Sequelize.INTEGER,
       },
       cityId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       createdAt: {
