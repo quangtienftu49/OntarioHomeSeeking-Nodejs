@@ -39,6 +39,7 @@ let postHomelisting = (inputData) => {
           phoneNumber: inputData.phoneNumber,
           userId: inputData.userId,
           cityId: inputData.cityId,
+          province: inputData.province,
         });
       }
 
