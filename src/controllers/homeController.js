@@ -42,8 +42,28 @@ let postHomelisting = async (req, res) => {
   }
 };
 
+let getAllHomelistings = async (req, res) => {
+  let id = req.query.id; //ALL, id
+
+  if (!id) {
+    return res.status(200).json({
+      errCode: 1,
+      errMessage: "Missing required parameters",
+      users: [],
+    });
+  }
+  let homelistings = await homeService.getAllHomelistings(id);
+
+  return res.status(200).json({
+    errCode: 0,
+    errMessage: "OK",
+    homelistings,
+  });
+};
+
 module.exports = {
   getHomePage: getHomePage,
   getAllCities: getAllCities,
   postHomelisting: postHomelisting,
+  getAllHomelistings: getAllHomelistings,
 };

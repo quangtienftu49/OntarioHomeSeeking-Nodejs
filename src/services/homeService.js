@@ -40,6 +40,7 @@ let postHomelisting = (inputData) => {
           userId: inputData.userId,
           cityId: inputData.cityId,
           province: inputData.province,
+          image: inputData.image,
         });
       }
 
@@ -53,7 +54,32 @@ let postHomelisting = (inputData) => {
   });
 };
 
+let getAllHomelistings = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let homelistings = "";
+
+      if (inputId === "ALL") {
+        homelistings = await db.Home_listing.findAll();
+      }
+      // if (inputId && inputId !== "ALL") {
+      //   users = await db.Home_listing.findOne({
+      //     where: { id: userId },
+      //     attributes: {
+      //       exclude: ["password"],
+      //     },
+      //   });
+      // }
+
+      resolve(homelistings);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   getAllCities: getAllCities,
   postHomelisting: postHomelisting,
+  getAllHomelistings: getAllHomelistings,
 };
