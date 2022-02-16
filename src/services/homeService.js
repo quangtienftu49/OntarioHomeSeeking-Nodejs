@@ -78,8 +78,33 @@ let getAllHomelistings = (inputId) => {
   });
 };
 
+let handleDeleteHomelisting = (homelistingId) => {
+  return new Promise(async (resolve, reject) => {
+    let homelisting = await db.Home_listing.findOne({
+      where: { id: homelistingId },
+    });
+
+    if (!homelisting) {
+      resolve({
+        errCode: 2,
+        errMessage: "The home listing does not exist",
+      });
+    }
+
+    await db.Home_listing.destroy({
+      where: { id: homelistingId },
+    });
+
+    resolve({
+      errCode: 0,
+      errMessage: "Deleted successfully!",
+    });
+  });
+};
+
 module.exports = {
   getAllCities: getAllCities,
   postHomelisting: postHomelisting,
   getAllHomelistings: getAllHomelistings,
+  handleDeleteHomelisting: handleDeleteHomelisting,
 };

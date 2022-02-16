@@ -61,9 +61,21 @@ let getAllHomelistings = async (req, res) => {
   });
 };
 
+let handleDeleteHomelisting = async (req, res) => {
+  if (!req.body.id) {
+    return res.status(200).json({
+      errCode: 1,
+      errMessage: "Missing required parameters!",
+    });
+  }
+  let message = await homeService.handleDeleteHomelisting(req.body.id);
+  return res.status(200).json(message);
+};
+
 module.exports = {
   getHomePage: getHomePage,
   getAllCities: getAllCities,
   postHomelisting: postHomelisting,
   getAllHomelistings: getAllHomelistings,
+  handleDeleteHomelisting: handleDeleteHomelisting,
 };

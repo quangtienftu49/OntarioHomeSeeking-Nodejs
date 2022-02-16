@@ -8,6 +8,10 @@ let initWebRoutes = (app) => {
   router.get("/api/get-all-cities", homeController.getAllCities);
   router.post("/api/save-homelisting", homeController.postHomelisting);
   router.get("/api/get-all-homelistings", homeController.getAllHomelistings);
+  router.delete(
+    "/api/delete-homelisting",
+    homeController.handleDeleteHomelisting
+  );
 
   return app.use("/", router);
 };
