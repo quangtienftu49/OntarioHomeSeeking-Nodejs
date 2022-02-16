@@ -102,9 +102,64 @@ let handleDeleteHomelisting = (homelistingId) => {
   });
 };
 
+let updateHomelisting = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (
+        !data.id ||
+        !data.address ||
+        !data.price ||
+        !data.cityId ||
+        !data.description ||
+        !data.phoneNumber
+      ) {
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameters!",
+        });
+      }
+      let homelisting = await db.Home_listing.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+
+      if (homelisting) {
+        homelisting.address = data.address;
+        homelisting.price = data.price;
+        homelisting.cityId = data.cityId;
+        homelisting.description = data.description;
+        homelisting.phoneNumber = data.phoneNumber;
+        homelisting.province = data.province;
+        if (data.image) {
+          homelisting.image = data.image;
+        }
+
+        await homelisting.save({
+          // firstName: data.firstName,
+          // lastName: data.lastName,
+          // address: data.address,
+        });
+
+        resolve({
+          errCode: 0,
+          message: "Update the home listing successfully!",
+        });
+      } else {
+        resolve({
+          errCode: 1,
+          errMessage: "The home listing not found!",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   getAllCities: getAllCities,
   postHomelisting: postHomelisting,
   getAllHomelistings: getAllHomelistings,
   handleDeleteHomelisting: handleDeleteHomelisting,
+  updateHomelisting: updateHomelisting,
 };

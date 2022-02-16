@@ -72,10 +72,17 @@ let handleDeleteHomelisting = async (req, res) => {
   return res.status(200).json(message);
 };
 
+let handleEditHomelisting = async (req, res) => {
+  let data = req.body;
+  let message = await homeService.updateHomelisting(data);
+  return res.status(200).json(message);
+};
+
 module.exports = {
   getHomePage: getHomePage,
   getAllCities: getAllCities,
   postHomelisting: postHomelisting,
   getAllHomelistings: getAllHomelistings,
   handleDeleteHomelisting: handleDeleteHomelisting,
+  handleEditHomelisting: handleEditHomelisting,
 };

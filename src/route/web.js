@@ -12,6 +12,7 @@ let initWebRoutes = (app) => {
     "/api/delete-homelisting",
     homeController.handleDeleteHomelisting
   );
+  router.put("/api/edit-homelisting", homeController.handleEditHomelisting);
 
   return app.use("/", router);
 };
