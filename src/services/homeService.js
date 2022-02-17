@@ -156,10 +156,62 @@ let updateHomelisting = (data) => {
   });
 };
 
+let getHomelistingByCityId = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!inputId) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing required parameter",
+        });
+      } else {
+        let data = await db.Home_listing.findOne({
+          where: { cityId: inputId },
+          //join tables
+          // attributes: {
+          //   exclude: ["password"],
+          // },
+          // include: [
+          //   {
+          //     model: db.Markdown,
+          //     attributes: ["description", "contentHTML", "contentMarkdown"],
+          //   },
+          //   {
+          //     model: db.Allcode,
+          //     as: "positionData",
+          //     attributes: ["valueEn", "valueVi"],
+          //   },
+          // ],
+          // raw: false,
+          // nest: true,
+        });
+
+        //convert buffer to base64 in Nodejs before transferring to Reactjs
+        if (data && data.image) {
+          data.image = new Buffer(data.image, "base64").toString("binary");
+        }
+
+        //avoid undefined error
+        if (!data) {
+          data = {};
+        }
+
+        resolve({
+          errCode: 0,
+          data: data,
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   getAllCities: getAllCities,
   postHomelisting: postHomelisting,
   getAllHomelistings: getAllHomelistings,
   handleDeleteHomelisting: handleDeleteHomelisting,
   updateHomelisting: updateHomelisting,
+  getHomelistingByCityId: getHomelistingByCityId,
 };

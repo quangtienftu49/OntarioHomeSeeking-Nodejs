@@ -13,6 +13,10 @@ let initWebRoutes = (app) => {
     homeController.handleDeleteHomelisting
   );
   router.put("/api/edit-homelisting", homeController.handleEditHomelisting);
+  router.get(
+    "/api/get-homelisting-by-cityId",
+    homeController.getHomelistingByCityId
+  );
 
   return app.use("/", router);
 };

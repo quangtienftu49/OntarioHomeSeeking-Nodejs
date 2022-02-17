@@ -78,6 +78,19 @@ let handleEditHomelisting = async (req, res) => {
   return res.status(200).json(message);
 };
 
+let getHomelistingByCityId = async (req, res) => {
+  try {
+    let infor = await homeService.getHomelistingByCityId(req.query.id);
+    return res.status(200).json(infor);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from the server",
+    });
+  }
+};
+
 module.exports = {
   getHomePage: getHomePage,
   getAllCities: getAllCities,
@@ -85,4 +98,5 @@ module.exports = {
   getAllHomelistings: getAllHomelistings,
   handleDeleteHomelisting: handleDeleteHomelisting,
   handleEditHomelisting: handleEditHomelisting,
+  getHomelistingByCityId: getHomelistingByCityId,
 };
