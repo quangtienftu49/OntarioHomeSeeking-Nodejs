@@ -165,7 +165,7 @@ let getHomelistingByCityId = (inputId) => {
           errMessage: "Missing required parameter",
         });
       } else {
-        let data = await db.Home_listing.findOne({
+        let data = await db.Home_listing.findAll({
           where: { cityId: inputId },
           //join tables
           // attributes: {
@@ -187,8 +187,10 @@ let getHomelistingByCityId = (inputId) => {
         });
 
         //convert buffer to base64 in Nodejs before transferring to Reactjs
-        if (data && data.image) {
-          data.image = new Buffer(data.image, "base64").toString("binary");
+        if (data) {
+          data.map((item) => {
+            item.image = new Buffer(item.image, "base64").toString("binary");
+          });
         }
 
         //avoid undefined error
