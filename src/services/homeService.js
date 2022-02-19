@@ -60,7 +60,7 @@ let getAllHomelistings = (inputId) => {
       let homelistings = "";
 
       if (inputId === "ALL") {
-        homelistings = await db.Home_listing.findAll();
+        homelistings = await db.Home_listing.findAll({ limit: 2 });
       }
       // if (inputId && inputId !== "ALL") {
       //   users = await db.Home_listing.findOne({
